@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closing Map — v3: Map Theme</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF8F5; --ink: #1A1A18; --ink-l: #4A4A45; --ink-m: #8A8A82;
+      --sage: #4A6B5D; --sage-l: #E8F0EC; --terra: #C4724A; --terra-l: #FDF0EA;
+      --sand: #E8E4DC; --blue: #2563EB; --blue-l: #EFF6FF; --green: #16A34A;
+      --green-l: #DCFCE7; --amber: #D97706; --amber-l: #FEF3C7; --red-l: #FEE2E2; --red: #DC2626;
+      --fd: 'Fraunces', Georgia, serif; --fb: 'DM Sans', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(250,248,245,0.94); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,26,24,0.07);
+    }
+    .logo { font-family: var(--fd); font-size: 1.3rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+    nav a { font-size: 0.875rem; color: var(--ink-l); text-decoration: none; }
+    .nav-sign { font-size: 0.875rem; }
+    .nav-cta {
+      background: var(--ink); color: var(--cream) !important; padding: 0.55rem 1.1rem;
+      border-radius: 6px; font-weight: 500; font-size: 0.875rem;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding: 8rem 2rem 4rem;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      max-width: 860px; margin: 0 auto;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--blue-l); color: var(--blue); padding: 0.35rem 0.9rem;
+      border-radius: 100px; font-size: 0.8rem; font-weight: 500; margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-family: var(--fd); font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+      font-weight: 400; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--sage); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--ink-l); max-width: 500px;
+      margin-bottom: 2.5rem; line-height: 1.6;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-bottom: 4rem; }
+    .btn-blue {
+      background: var(--blue); color: white; padding: 0.9rem 1.75rem;
+      border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+    .btn-green {
+      background: var(--green); color: white; padding: 0.9rem 1.75rem;
+      border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-green:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(22,163,74,0.25); }
+
+    /* TRANSACTION MAP */
+    .tx-map {
+      width: 100%; background: linear-gradient(135deg, #1e3a5f 0%, #0f2444 100%);
+      border-radius: 16px; padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .tx-map-track {
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative;
+    }
+    .tx-map-track::before {
+      content: ''; position: absolute; top: 20px; left: 40px; right: 40px;
+      height: 3px; background: rgba(255,255,255,0.15); z-index: 0;
+    }
+    .tx-stage { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; z-index: 1; }
+    .tx-dot {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; border: 3px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+    .tx-dot.done { background: #16A34A; border-color: #16A34A; color: white; }
+    .tx-dot.active {
+      background: #2563EB; border-color: #60A5FA;
+      color: white; box-shadow: 0 0 0 6px rgba(37,99,235,0.25);
+    }
+    .tx-dot.warn { background: var(--amber); border-color: var(--amber); color: white; }
+    .tx-label {
+      font-size: 0.7rem; font-weight: 500; text-align: center;
+      color: rgba(255,255,255,0.55); max-width: 72px; line-height: 1.3;
+    }
+    .tx-label.done { color: rgba(255,255,255,0.85); }
+    .tx-label.active { color: white; font-weight: 600; }
+    .tx-sublabel {
+      font-size: 0.62rem; color: rgba(255,255,255,0.35);
+      text-align: center; max-width: 72px;
+    }
+    .tx-sublabel.warn { color: var(--amber); }
+    .tx-map-flag {
+      position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+      font-size: 0.7rem; color: rgba(255,255,255,0.5);
+    }
+
+    /* FAQ PILLS */
+    .faq-pills {
+      display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .faq-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: white; border: 1px solid var(--sand);
+      padding: 0.5rem 1rem; border-radius: 100px;
+      font-size: 0.825rem; color: var(--ink-l); cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .faq-pill:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(37,99,235,0.1); }
+    .faq-pill::before { content: '✓'; font-size: 0.7rem; color: var(--green); font-weight: 600; }
+
+    /* SECTION SHARED */
+    .section-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--ink-m); margin-bottom: 1rem;
+    }
+
+    /* PRODUCT PREVIEW */
+    .product-preview {
+      padding: 6rem 2rem; background: var(--ink);
+    }
+    .product-preview-inner { max-width: 1100px; margin: 0 auto; }
+    .product-preview .section-label { color: rgba(250,248,245,0.4); }
+    .product-preview h2 {
+      font-family: var(--fd); font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 400; color: var(--cream); margin-bottom: 0.75rem; max-width: 22ch;
+    }
+    .product-preview > .product-preview-inner > p {
+      color: rgba(250,248,245,0.65); font-size: 1rem; margin-bottom: 3rem; max-width: 480px;
+    }
+
+    /* CRM MOCKUP */
+    .browser-frame {
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .browser-chrome {
+      background: #2a2a28; padding: 0.7rem 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .browser-dot:nth-child(1) { background: #FF5F57; }
+    .browser-dot:nth-child(2) { background: #FEBC2E; }
+    .browser-dot:nth-child(3) { background: #28C840; }
+    .browser-url {
+      flex: 1; background: #1a1a18; border-radius: 6px;
+      padding: 0.3rem 0.75rem; font-size: 0.75rem;
+      color: rgba(250,248,245,0.4); font-family: monospace;
+    }
+    .crm {
+      background: #F1F5F9; font-size: 0.8rem;
+      font-family: var(--fb);
+    }
+    .crm-topbar {
+      background: white; border-bottom: 1px solid #E2E8F0;
+      padding: 0.75rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .crm-topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+    .crm-logo { font-weight: 700; font-size: 0.9rem; color: #1e3a5f; }
+    .crm-welcome { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+    .crm-topbar-right { display: flex; align-items: center; gap: 0.75rem; }
+    .crm-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: #EFF6FF; border: 1px solid #BFDBFE;
+      padding: 0.3rem 0.75rem; border-radius: 100px;
+      font-size: 0.75rem; font-weight: 500; color: #1D4ED8;
+    }
+    .crm-badge-green {
+      background: var(--green-l); border-color: #86EFAC; color: #15803D;
+    }
+    .crm-layout {
+      display: grid; grid-template-columns: 200px 1fr 220px; min-height: 400px;
+    }
+
+    /* CRM SIDEBAR */
+    .crm-sidebar {
+      background: white; border-right: 1px solid #E2E8F0;
+      padding: 1.25rem 1rem;
+    }
+    .crm-prop-card {
+      background: #F8FAFC; border: 1px solid #E2E8F0;
+      border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem;
+    }
+    .crm-prop-row { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+    .crm-prop-key { font-size: 0.7rem; color: var(--ink-m); }
+    .crm-prop-val { font-size: 0.7rem; font-weight: 600; color: var(--ink); }
+    .crm-status-badge {
+      display: inline-block; margin-top: 0.4rem;
+      background: var(--blue-l); color: var(--blue);
+      padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.65rem; font-weight: 600;
+    }
+    .crm-section-head {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--ink-m); margin-bottom: 0.5rem; margin-top: 0.9rem;
+    }
+    .crm-check-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--ink-l); padding: 0.2rem 0;
+    }
+    .crm-check-item::before {
+      content: ''; width: 13px; height: 13px; border-radius: 3px;
+      border: 1.5px solid #CBD5E1; flex-shrink: 0; background: white;
+    }
+    .crm-check-item.done { color: var(--ink-m); text-decoration: line-through; }
+    .crm-check-item.done::before {
+      background: var(--green); border-color: var(--green);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 10px; background-repeat: no-repeat; background-position: center;
+    }
+    .crm-tool-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--blue); padding: 0.3rem 0;
+      cursor: pointer; text-decoration: none;
+    }
+    .crm-tool-btn::before { content: '⊞'; font-size: 0.8rem; }
+
+    /* CRM MAIN */
+    .crm-main { padding: 1.25rem; }
+    .crm-focus-panel {
+      background: white; border-radius: 8px; border: 1px solid #E2E8F0;
+      padding: 1rem; margin-bottom: 1rem;
+    }
+    .crm-panel-head {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 0.6rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .crm-panel-head.green { color: var(--green); }
+    .crm-panel-head.amber { color: var(--amber); }
+    .crm-panel-head::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50; border-radius: 50%;
+    }
+    .crm-panel-head.green::before { background: var(--green); }
+    .crm-panel-head.amber::before { background: var(--amber); }
+    .crm-focus-item {
+      display: flex; align-items: flex-start; gap: 0.45rem;
+      font-size: 0.75rem; color: var(--ink); padding: 0.35rem 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .crm-focus-item:last-child { border-bottom: none; }
+    .crm-focus-check {
+      width: 14px; height: 14px; border-radius: 3px;
+      background: var(--green-l); border: 1.5px solid #86EFAC;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+      font-size: 0.55rem; color: var(--green); font-weight: 700;
+    }
+    .crm-advisor-box {
+      background: white; border: 1px solid #E2E8F0; border-radius: 8px;
+      padding: 0.75rem;
+    }
+    .crm-advisor-input {
+      width: 100%; background: #F8FAFC; border: 1px solid #E2E8F0;
+      border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.75rem;
+      color: var(--ink-m); font-family: var(--fb); cursor: text; margin-bottom: 0.6rem;
+    }
+    .crm-advisor-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .crm-advisor-chip {
+      background: var(--blue-l); color: var(--blue);
+      padding: 0.25rem 0.65rem; border-radius: 100px;
+      font-size: 0.68rem; font-weight: 500; cursor: pointer;
+    }
+
+    /* CRM RIGHT PANEL */
+    .crm-right {
+      border-left: 1px solid #E2E8F0; background: white;
+      padding: 1.25rem 1rem;
+    }
+    .crm-delay-item {
+      display: flex; align-items: flex-start; gap: 0.4rem;
+      font-size: 0.72rem; color: var(--ink); padding: 0.35rem 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .crm-delay-item:last-child { border-bottom: none; }
+    .crm-delay-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--amber); margin-top: 4px; flex-shrink: 0;
+    }
+    .crm-progress-wrap { margin-top: 1rem; }
+    .crm-progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: var(--ink-m); margin-bottom: 0.35rem;
+    }
+    .crm-progress-bar {
+      height: 6px; background: #E2E8F0; border-radius: 100px; overflow: hidden;
+    }
+    .crm-progress-fill {
+      height: 100%; background: var(--blue); border-radius: 100px;
+      transition: width 0.3s;
+    }
+    .crm-action-btns { display: flex; gap: 0.5rem; padding: 0.75rem 1.25rem; background: #F8FAFC; border-top: 1px solid #E2E8F0; flex-wrap: wrap; }
+    .crm-action-btn {
+      flex: 1; min-width: 100px; background: white; border: 1px solid #E2E8F0;
+      border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.72rem; font-weight: 500;
+      color: var(--ink-l); text-align: center; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.35rem;
+    }
+
+    /* PROBLEM */
+    .problem-section { padding: 6rem 2rem; background: #0f172a; color: white; }
+    .problem-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 700px) { .problem-inner { grid-template-columns: 1fr; } }
+    .problem-section .section-label { color: rgba(255,255,255,0.4); }
+    .problem-section h2 {
+      font-family: var(--fd); font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+    }
+    .problem-section p { color: rgba(255,255,255,0.65); font-size: 0.975rem; line-height: 1.7; margin-bottom: 1rem; }
+
+    /* ADVISOR CHAT */
+    .advisor-widget {
+      background: white; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .advisor-header {
+      background: var(--blue); padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .advisor-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem;
+    }
+    .advisor-header h4 { color: white; font-size: 0.875rem; font-weight: 600; }
+    .advisor-header p { color: rgba(255,255,255,0.75); font-size: 0.75rem; }
+    .advisor-body { padding: 1rem; }
+    .advisor-bubble {
+      background: #F1F5F9; border-radius: 10px 10px 10px 2px;
+      padding: 0.75rem 1rem; font-size: 0.8rem; color: var(--ink); margin-bottom: 0.75rem;
+      max-width: 85%;
+    }
+    .advisor-question {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.75rem; border-radius: 6px;
+      font-size: 0.775rem; color: var(--blue); cursor: pointer;
+      transition: background 0.15s;
+    }
+    .advisor-question:hover { background: var(--blue-l); }
+    .advisor-question::before { content: '→'; font-weight: 700; }
+    .advisor-input-row {
+      display: flex; gap: 0.5rem; padding: 0.75rem 1rem;
+      border-top: 1px solid #E2E8F0; background: white;
+    }
+    .advisor-input {
+      flex: 1; background: #F8FAFC; border: 1px solid #E2E8F0;
+      border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 0.775rem;
+      color: var(--ink-m); font-family: var(--fb);
+    }
+    .advisor-send {
+      background: var(--blue); color: white; border: none; border-radius: 6px;
+      padding: 0.5rem 0.75rem; font-size: 0.775rem; font-weight: 500; cursor: pointer;
+    }
+
+    /* CTA */
+    .cta-section { padding: 6rem 2rem; text-align: center; background: var(--cream); }
+    .cta-section h2 {
+      font-family: var(--fd); font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 400; margin-bottom: 1rem;
+    }
+    .cta-section p { color: var(--ink-l); font-size: 1rem; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: var(--cream); padding: 3rem 2rem; }
+    .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.85rem; color: rgba(250,248,245,0.55); text-decoration: none; }
+    .footer-copy { font-size: 0.85rem; color: rgba(250,248,245,0.35); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">Closing Map</a>
+    <div style="display:flex;gap:2rem;align-items:center;">
+      <a href="#">Calculators</a>
+      <a href="#">How it works</a>
+      <a href="#">For sellers</a>
+      <a href="#" class="nav-sign">Sign In</a>
+      <a href="#" class="nav-cta">Get started</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">🗺 Real-time transaction clarity</div>
+    <h1>Your real estate transaction, <em>finally mapped</em></h1>
+    <p class="hero-sub">Get clear on costs, next steps, and what's happening at every stage of your deal — before you talk to anyone.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-blue">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Start My Closing Map
+      </a>
+      <a href="#" class="btn-green">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        Ask the Closing Advisor
+      </a>
+    </div>
+
+    <!-- TRANSACTION MAP -->
+    <div class="tx-map">
+      <div class="tx-map-track">
+        <div class="tx-stage">
+          <div class="tx-dot done">✓</div>
+          <div class="tx-label done">Offer Accepted</div>
+          <div class="tx-sublabel">Complete</div>
+        </div>
+        <div class="tx-stage">
+          <div class="tx-dot done">✓</div>
+          <div class="tx-label done">Home Inspection</div>
+          <div class="tx-sublabel">Complete</div>
+        </div>
+        <div class="tx-stage">
+          <div class="tx-dot active">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="tx-label active">Attorney Review</div>
+          <div class="tx-sublabel">Choose an inspector for your area...</div>
+        </div>
+        <div class="tx-stage">
+          <div class="tx-dot warn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div class="tx-label">Appraisal</div>
+          <div class="tx-sublabel warn">Waiting on Documents</div>
+        </div>
+        <div class="tx-stage">
+          <div class="tx-dot">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 4h.01"/></svg>
+          </div>
+          <div class="tx-label">Loan Approval</div>
+          <div class="tx-sublabel">Waiting on Documents</div>
+        </div>
+        <div class="tx-stage">
+          <div class="tx-dot">🏠</div>
+          <div class="tx-label">Closing Day</div>
+          <div class="tx-sublabel">Go to the next screen</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ PILLS -->
+    <div class="faq-pills">
+      <div class="faq-pill">How much do I need to close?</div>
+      <div class="faq-pill">What are my seller costs?</div>
+      <div class="faq-pill">What happens after my offer is accepted?</div>
+      <div class="faq-pill">Do I need an attorney?</div>
+    </div>
+  </section>
+
+  <!-- PRODUCT PREVIEW (CRM DASHBOARD) -->
+  <section class="product-preview">
+    <div class="product-preview-inner">
+      <p class="section-label">Your dashboard</p>
+      <h2>Everything in one place. Everyone on the same page.</h2>
+      <p>After the assessment, your dashboard tracks every stage of the deal — with your team, your documents, and your next steps always visible.</p>
+
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="browser-dots">
+            <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">app.closingmap.com/dashboard</div>
+        </div>
+
+        <div class="crm">
+          <!-- CRM TOP BAR -->
+          <div class="crm-topbar">
+            <div class="crm-topbar-left">
+              <span class="crm-logo">Closing Map</span>
+              <span style="color:#CBD5E1;">|</span>
+              <span class="crm-welcome">Welcome back, David</span>
+            </div>
+            <div class="crm-topbar-right">
+              <span class="crm-badge">🏠 Property</span>
+              <span class="crm-badge" style="background:#EFF6FF;border-color:#BFDBFE;color:#1D4ED8;">$750,000</span>
+              <span class="crm-badge crm-badge-green">Pre-Offer Stage</span>
+            </div>
+          </div>
+
+          <!-- CRM LAYOUT -->
+          <div class="crm-layout">
+
+            <!-- SIDEBAR -->
+            <div class="crm-sidebar">
+              <div class="crm-prop-card">
+                <div class="crm-prop-row">
+                  <span class="crm-prop-key">Property</span>
+                  <span class="crm-prop-val">TBD</span>
+                </div>
+                <div class="crm-prop-row">
+                  <span class="crm-prop-key">Budget</span>
+                  <span class="crm-prop-val">$750,000</span>
+                </div>
+                <div class="crm-prop-row">
+                  <span class="crm-prop-key">Status</span>
+                  <span class="crm-prop-val">Buyer</span>
+                </div>
+                <div><span class="crm-status-badge">Pre-Offer Stage</span></div>
+              </div>
+
+              <div class="crm-section-head">Your Next Steps</div>
+              <div class="crm-check-item">Connect with a Lender</div>
+              <div class="crm-check-item">Upload Documents</div>
+              <div class="crm-check-item">Finalize Agent</div>
+              <div class="crm-check-item done">Completed Assessment</div>
+
+              <div class="crm-section-head">Tools</div>
+              <a href="#" class="crm-tool-btn">Cost Calculator</a>
+              <a href="#" class="crm-tool-btn">Net Proceeds</a>
+            </div>
+
+            <!-- MAIN -->
+            <div class="crm-main">
+              <div class="crm-focus-panel">
+                <div class="crm-panel-head green">What to Focus on Now</div>
+                <div class="crm-focus-item">
+                  <div class="crm-focus-check">✓</div>
+                  Get Pre-Approval Letter — lenders typically need 48–72hrs
+                </div>
+                <div class="crm-focus-item">
+                  <div class="crm-focus-check">✓</div>
+                  Prepare Proof of Funds for down payment verification
+                </div>
+                <div class="crm-focus-item" style="color:var(--ink-m);">
+                  <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #CBD5E1;flex-shrink:0;margin-top:1px;"></div>
+                  Upload government ID to document vault
+                </div>
+              </div>
+              <div class="crm-advisor-box">
+                <div class="crm-advisor-input">Ask the Closing Advisor...</div>
+                <div class="crm-advisor-chips">
+                  <span class="crm-advisor-chip">Loan Strategy</span>
+                  <span class="crm-advisor-chip">Title Review</span>
+                  <span class="crm-advisor-chip">Deal Guidance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="crm-right">
+              <div class="crm-panel-head amber">Potential Delays</div>
+              <div class="crm-delay-item">
+                <div class="crm-delay-dot"></div>
+                Title Search Issues — early review recommended
+              </div>
+              <div class="crm-delay-item">
+                <div class="crm-delay-dot"></div>
+                Appraisal Timing — 10–14 day lead time in this market
+              </div>
+
+              <div class="crm-progress-wrap">
+                <div class="crm-section-head" style="margin-top:1.25rem;">Readiness Score</div>
+                <div class="crm-progress-label"><span>Profile Complete</span><span>34%</span></div>
+                <div class="crm-progress-bar"><div class="crm-progress-fill" style="width:34%;"></div></div>
+                <div style="font-size:0.68rem;color:var(--ink-m);margin-top:0.4rem;">Upload documents to advance your score</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="crm-action-btns">
+            <div class="crm-action-btn">📋 Loan Strategy</div>
+            <div class="crm-action-btn">🔍 Title Review</div>
+            <div class="crm-action-btn">📎 Deal Guidance</div>
+            <div class="crm-action-btn">📂 Document Vault</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM + ADVISOR -->
+  <section class="problem-section">
+    <div class="problem-inner">
+      <div>
+        <p class="section-label">The problem</p>
+        <h2>Most buyers and sellers don't find out about problems until it's almost too late.</h2>
+        <p>A lien surfaces two days before closing. An old judgment appears on the title. A boundary dispute nobody mentioned. These aren't rare exceptions — they happen in roughly one in three transactions.</p>
+        <p>Closing Map exists because peace of mind should be at the beginning of your transaction, not just the end.</p>
+        <div style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+          <a href="#" class="btn-blue" style="font-size:0.875rem;padding:0.65rem 1.25rem;">Talk to AI Agent</a>
+          <a href="#" style="background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.15);padding:0.65rem 1.25rem;border-radius:8px;font-size:0.875rem;text-decoration:none;">Knowledge Base</a>
+        </div>
+      </div>
+      <div class="advisor-widget">
+        <div class="advisor-header">
+          <div class="advisor-avatar">🤖</div>
+          <div>
+            <h4>Closing Advisor</h4>
+            <p>Powered by Closing Map AI</p>
+          </div>
+        </div>
+        <div class="advisor-body">
+          <div class="advisor-bubble">Hi there! What are you trying to figure out today?</div>
+          <div class="advisor-question">How much do I need to close?</div>
+          <div class="advisor-question">Are you buying or selling?</div>
+          <div class="advisor-question">What happens after my offer is accepted?</div>
+        </div>
+        <div class="advisor-input-row">
+          <input class="advisor-input" placeholder="Ask anything..." />
+          <button class="advisor-send">Send</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Protect your transaction from day one</h2>
+    <p>Start with a closing cost estimate. When you're ready, we'll match you with professionals who keep your deal on track.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-blue">See your closing costs →</a>
+      <a href="#" style="background:transparent;color:var(--ink);border:1px solid var(--sand);padding:0.9rem 1.75rem;border-radius:8px;font-size:0.95rem;font-weight:500;text-decoration:none;">Find your team</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="/" class="logo" style="color:var(--cream);">Closing Map</a>
+      <div class="footer-links">
+        <a href="#">Calculators</a><a href="#">How it works</a>
+        <a href="#">For sellers</a><a href="#">Privacy</a>
+      </div>
+      <span class="footer-copy">© 2026 Closing Map</span>
+    </div>
+  </footer>
+
+</body>
+</html>
