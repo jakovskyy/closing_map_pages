@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closing Map | Guided by Professionals. Protected from Surprises.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-cream: #FAF8F5;
+      --color-ink: #1A1A18;
+      --color-ink-light: #4A4A45;
+      --color-ink-muted: #8A8A82;
+      --color-sage: #4A6B5D;
+      --color-sage-light: #E8F0EC;
+      --color-terracotta: #C4724A;
+      --color-terracotta-light: #FDF0EA;
+      --color-sand: #E8E4DC;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-ink);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--color-ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-cta {
+      background: var(--color-ink);
+      color: var(--color-cream) !important;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26, 26, 24, 0.15);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-sage-light);
+      color: var(--color-sage);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--color-sage);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 16ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-sage);
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: var(--color-ink-light);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--color-terracotta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196, 114, 74, 0.25);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-ink);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--color-sand);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-sand);
+      border-color: var(--color-sand);
+    }
+
+    .hero-proof {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-sand);
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .proof-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proof-stat strong {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .proof-stat span {
+      font-size: 0.9rem;
+      color: var(--color-ink-muted);
+    }
+
+    /* PROBLEM SECTION */
+    .problem {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 6rem 2rem;
+    }
+
+    .problem-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .problem .section-label {
+      color: rgba(250, 248, 245, 0.5);
+    }
+
+    .problem h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 2rem;
+      max-width: 24ch;
+    }
+
+    .problem-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(250, 248, 245, 0.8);
+      max-width: 640px;
+    }
+
+    .problem-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* VALUE PROPS */
+    .value {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 3rem;
+      max-width: 20ch;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--color-sand);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(26, 26, 24, 0.08);
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-sage-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .value-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-sage);
+    }
+
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .value-card p {
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      background: var(--color-sage-light);
+      padding: 6rem 2rem;
+    }
+
+    .how-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .how h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .how-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .how-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(74, 107, 93, 0.15);
+    }
+
+    .how-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--color-sage);
+      line-height: 1;
+    }
+
+    .step-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: var(--color-ink-light);
+      font-size: 1rem;
+      max-width: 480px;
+    }
+
+    .step-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      color: var(--color-sage);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .step-cta:hover {
+      gap: 0.6rem;
+    }
+
+    .step-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* TOOLS SECTION */
+    .tools {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tools h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .tools > p {
+      color: var(--color-ink-light);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-card {
+      background: white;
+      border: 1px solid var(--color-sand);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--color-ink-muted);
+    }
+
+    .tool-card.featured {
+      grid-column: span 2;
+      background: var(--color-terracotta-light);
+      border-color: transparent;
+      flex-direction: row;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .tool-card.featured {
+        grid-column: span 1;
+        flex-direction: column;
+      }
+    }
+
+    .tool-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-card p {
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .tool-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.25rem;
+      color: var(--color-terracotta);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .tool-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* SELLER SECTION */
+    .seller {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 6rem 2rem;
+    }
+
+    .seller-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .seller-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .seller h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .seller p {
+      color: rgba(250, 248, 245, 0.75);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .seller-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .seller-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .seller-benefit svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-sage);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .seller-benefit span {
+      color: rgba(250, 248, 245, 0.9);
+      font-size: 0.95rem;
+    }
+
+    /* TESTIMONIAL */
+    .testimonial {
+      padding: 6rem 2rem;
+      background: var(--color-sand);
+    }
+
+    .testimonial-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+    }
+
+    .testimonial cite strong {
+      display: block;
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--color-ink-light);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-section .hero-ctas {
+      justify-content: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-brand .logo {
+      color: var(--color-cream);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: rgba(250, 248, 245, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(250, 248, 245, 0.5);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(250, 248, 245, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.35rem 0;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--color-cream);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(250, 248, 245, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      color: rgba(250, 248, 245, 0.4);
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom a {
+      color: rgba(250, 248, 245, 0.4);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom a:hover {
+      color: rgba(250, 248, 245, 0.7);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero > * {
+      animation: fadeUp 0.6s ease-out backwards;
+    }
+
+    .hero-badge { animation-delay: 0.1s; }
+    .hero h1 { animation-delay: 0.2s; }
+    .hero-sub { animation-delay: 0.3s; }
+    .hero-ctas { animation-delay: 0.4s; }
+    .hero-proof { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="/" class="logo">Closing Map</a>
+    <div class="nav-links">
+      <a href="#calculators">Calculators</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#sellers">For sellers</a>
+      <a href="/login">Sign in</a>
+      <a href="/assessment" class="nav-cta">Get started</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Backed by licensed title professionals in NJ & NY</div>
+    <h1>The <em>protected</em> path to buying or selling your home</h1>
+    <p class="hero-sub">Guided by real estate professionals. Backed by title experts who catch problems before they cost you. No surprises at closing.</p>
+    <div class="hero-ctas">
+      <a href="/calculator/closing-costs" class="btn-primary">
+        See your closing costs
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <a href="#how-it-works" class="btn-secondary">How we protect you</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-stat">
+        <strong>2,400+</strong>
+        <span>Transactions protected</span>
+      </div>
+      <div class="proof-stat">
+        <strong>98%</strong>
+        <span>Close without delays</span>
+      </div>
+      <div class="proof-stat">
+        <strong>NJ & NY</strong>
+        <span>Licensed professionals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="problem-inner">
+      <p class="section-label">The risk</p>
+      <h2>Most buyers and sellers don't find out about problems until it's almost too late.</h2>
+      <div class="problem-text">
+        <p>A lien surfaces two days before closing. An old judgment appears on the title. A boundary dispute nobody mentioned. These aren't rare exceptions. They happen in roughly one in three transactions.</p>
+        <p>When problems appear late, you lose leverage. You scramble. You pay more than you should to make it go away, or you walk away from a deal you wanted.</p>
+        <p>Closing Map exists because peace of mind should be at the beginning of your transaction, not just the end. Discover issues early, when you can still negotiate, plan, or walk away on your terms.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPS -->
+  <section class="value">
+    <p class="section-label">How we protect you</p>
+    <h2>Transaction security built into every step</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+        </div>
+        <h3>Early title review</h3>
+        <p>We run preliminary title checks before you're deep into a deal. Liens, judgments, encumbrances, boundary issues. Know what you're dealing with while you still have options.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+        <h3>Vetted professionals</h3>
+        <p>Every agent, lender, and attorney in our network is licensed, verified, and matched to your specific situation. Not random referrals. Professionals who fit.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <h3>Full transparency</h3>
+        <p>See exactly what you'll pay at closing, line by line. Title insurance, transfer taxes, attorney fees, lender costs. No surprises, no hidden fees, no last-minute additions.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+          </svg>
+        </div>
+        <h3>Guided process</h3>
+        <p>Step-by-step guidance from offer to closing day. Know what's coming, what documents you need, what deadlines matter. Your transaction dashboard keeps everything organized.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how-it-works">
+    <div class="how-inner">
+      <p class="section-label">Your protected path</p>
+      <h2>How we keep your transaction safe</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Understand your costs upfront</h3>
+            <p>Use our calculators to see exactly what closing will cost. Built by title professionals who know NJ and NY fees down to the dollar. No estimates. Real numbers.</p>
+            <a href="/calculator/closing-costs" class="step-cta">
+              Calculate your closing costs
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Get matched with the right team</h3>
+            <p>Tell us about your situation. We match you with licensed agents, lenders, and attorneys who specialize in transactions like yours. You interview them. You choose.</p>
+            <a href="/assessment" class="step-cta">
+              Find your professionals
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Close with confidence</h3>
+            <p>Your entire team works through a shared workspace. Documents organized, deadlines tracked, communication in one place. Title professionals catch issues early. You close on time.</p>
+            <a href="/knowledge-base/closing-process" class="step-cta">
+              See how closing works
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="tools" id="calculators">
+    <p class="section-label">Professional-grade tools</p>
+    <h2>Built by title experts</h2>
+    <p>The same calculations our closing teams use internally, now available to you. Accurate to NJ and NY fee schedules.</p>
+    <div class="tools-grid">
+      <div class="tool-card featured">
+        <div>
+          <h3>Closing Cost Calculator</h3>
+          <p>The exact fees you'll pay at closing: title insurance premiums, state and county transfer taxes, recording fees, attorney costs, lender charges. Line-by-line accuracy for NJ and NY purchases.</p>
+          <a href="/calculator/closing-costs">See your costs →</a>
+        </div>
+      </div>
+      <div class="tool-card">
+        <h3>Affordability Calculator</h3>
+        <p>What price range keeps your finances safe? Factor in closing costs, not just the mortgage payment.</p>
+        <a href="/calculator/affordability">Check your budget →</a>
+      </div>
+      <div class="tool-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Compare loan scenarios. See how rates, terms, and down payment affect your total cost over time.</p>
+        <a href="/calculator/mortgage">Compare options →</a>
+      </div>
+      <div class="tool-card">
+        <h3>Seller Net Sheet</h3>
+        <p>After commissions, payoffs, transfer taxes, and closing costs, what do you actually walk away with?</p>
+        <a href="/calculator/net-sheet">Calculate your net →</a>
+      </div>
+      <div class="tool-card">
+        <h3>AI Assistant</h3>
+        <p>Questions about title, closing, or the process? Get answers from an AI trained on real estate transaction expertise.</p>
+        <a href="/assistant">Ask a question →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELLER SECTION -->
+  <section class="seller" id="sellers">
+    <div class="seller-inner">
+      <div>
+        <p class="section-label" style="color: rgba(250,248,245,0.5);">For sellers</p>
+        <h2>Verified Sellers close faster and with fewer surprises</h2>
+        <p>Most title issues surface at the worst possible time: days before closing, when you have no leverage. The Verified Seller Program runs title checks before you list, so you fix problems before buyers even see them.</p>
+        <a href="/verified-seller" class="btn-primary" style="background: var(--color-sage);">Get verified before you list →</a>
+      </div>
+      <div class="seller-benefits">
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <span>Preliminary title search surfaces liens, judgments, and encumbrances before listing</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <span>Verified badge signals transaction-readiness to buyers and their agents</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <span>Problems get fixed on your timeline, not under contract pressure</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+          </svg>
+          <span>No upfront cost. Title work handled at closing.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <blockquote>"They found a 15-year-old judgment I didn't even know existed. If that had come up at closing, it would have killed the deal. Instead, we cleared it a month before listing."</blockquote>
+      <cite>
+        <strong>David R.</strong>
+        Home seller, Montclair NJ
+      </cite>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <h2>Protect your transaction from day one</h2>
+    <p>Start with a closing cost estimate. When you're ready, we'll match you with professionals who keep your deal on track.</p>
+    <div class="hero-ctas">
+      <a href="/calculator/closing-costs" class="btn-primary">
+        See your closing costs
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <a href="/assessment" class="btn-secondary">Find your team</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">Closing Map</a>
+        <p>Transaction security for home buyers and sellers. Backed by licensed title professionals in New Jersey and New York.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="/calculator/closing-costs">Closing costs</a>
+        <a href="/calculator/affordability">Affordability</a>
+        <a href="/calculator/mortgage">Mortgage</a>
+        <a href="/calculator/net-sheet">Seller net sheet</a>
+        <a href="/assistant">AI assistant</a>
+      </div>
+      <div class="footer-col">
+        <h4>Protection</h4>
+        <a href="/verified-seller">Verified Seller</a>
+        <a href="/knowledge-base/title-insurance">Title insurance</a>
+        <a href="/knowledge-base/closing-process">Closing process</a>
+        <a href="/knowledge-base/common-issues">Common title issues</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/pro">For professionals</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Closing Map. All rights reserved.</p>
+      <a href="/privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>

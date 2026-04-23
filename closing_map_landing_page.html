@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closing Map | Know Your Numbers Before You Talk to Anyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-cream: #FAF8F5;
+      --color-ink: #1A1A18;
+      --color-ink-light: #4A4A45;
+      --color-ink-muted: #8A8A82;
+      --color-sage: #4A6B5D;
+      --color-sage-light: #E8F0EC;
+      --color-terracotta: #C4724A;
+      --color-terracotta-light: #FDF0EA;
+      --color-sand: #E8E4DC;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-ink);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--color-ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-ink);
+    }
+
+    .nav-cta {
+      background: var(--color-ink);
+      color: var(--color-cream) !important;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26, 26, 24, 0.15);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-sage-light);
+      color: var(--color-sage);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--color-sage);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 14ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-sage);
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: var(--color-ink-light);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--color-terracotta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196, 114, 74, 0.25);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-ink);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid var(--color-sand);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-sand);
+      border-color: var(--color-sand);
+    }
+
+    .hero-proof {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-sand);
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .proof-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proof-stat strong {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--color-ink);
+    }
+
+    .proof-stat span {
+      font-size: 0.9rem;
+      color: var(--color-ink-muted);
+    }
+
+    /* PROBLEM SECTION */
+    .problem {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 6rem 2rem;
+    }
+
+    .problem-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .problem .section-label {
+      color: rgba(250, 248, 245, 0.5);
+    }
+
+    .problem h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 2rem;
+      max-width: 20ch;
+    }
+
+    .problem-text {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(250, 248, 245, 0.8);
+      max-width: 640px;
+    }
+
+    .problem-text p + p {
+      margin-top: 1.5rem;
+    }
+
+    /* VALUE PROPS */
+    .value {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .value h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 3rem;
+      max-width: 18ch;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--color-sand);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(26, 26, 24, 0.08);
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-sage-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .value-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-sage);
+    }
+
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .value-card p {
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .how {
+      background: var(--color-sage-light);
+      padding: 6rem 2rem;
+    }
+
+    .how-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .how h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .how-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .how-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(74, 107, 93, 0.15);
+    }
+
+    .how-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--color-sage);
+      line-height: 1;
+    }
+
+    .step-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content p {
+      color: var(--color-ink-light);
+      font-size: 1rem;
+      max-width: 480px;
+    }
+
+    .step-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      color: var(--color-sage);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .step-cta:hover {
+      gap: 0.6rem;
+    }
+
+    .step-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* TOOLS SECTION */
+    .tools {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tools h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .tools > p {
+      color: var(--color-ink-light);
+      font-size: 1.1rem;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-card {
+      background: white;
+      border: 1px solid var(--color-sand);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--color-ink-muted);
+    }
+
+    .tool-card.featured {
+      grid-column: span 2;
+      background: var(--color-terracotta-light);
+      border-color: transparent;
+      flex-direction: row;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .tool-card.featured {
+        grid-column: span 1;
+        flex-direction: column;
+      }
+    }
+
+    .tool-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .tool-card p {
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .tool-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.25rem;
+      color: var(--color-terracotta);
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .tool-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* SELLER SECTION */
+    .seller {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 6rem 2rem;
+    }
+
+    .seller-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .seller-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .seller h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 1.5rem;
+    }
+
+    .seller p {
+      color: rgba(250, 248, 245, 0.75);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .seller-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .seller-benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .seller-benefit svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-sage);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .seller-benefit span {
+      color: rgba(250, 248, 245, 0.9);
+      font-size: 0.95rem;
+    }
+
+    /* TESTIMONIAL */
+    .testimonial {
+      padding: 6rem 2rem;
+      background: var(--color-sand);
+    }
+
+    .testimonial-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 2rem;
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      color: var(--color-ink-light);
+      font-size: 0.95rem;
+    }
+
+    .testimonial cite strong {
+      display: block;
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--color-ink-light);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-section .hero-ctas {
+      justify-content: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .footer-brand {
+      max-width: 280px;
+    }
+
+    .footer-brand .logo {
+      color: var(--color-cream);
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: rgba(250, 248, 245, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(250, 248, 245, 0.5);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(250, 248, 245, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.35rem 0;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--color-cream);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(250, 248, 245, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p {
+      color: rgba(250, 248, 245, 0.4);
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom a {
+      color: rgba(250, 248, 245, 0.4);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom a:hover {
+      color: rgba(250, 248, 245, 0.7);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero > * {
+      animation: fadeUp 0.6s ease-out backwards;
+    }
+
+    .hero-badge { animation-delay: 0.1s; }
+    .hero h1 { animation-delay: 0.2s; }
+    .hero-sub { animation-delay: 0.3s; }
+    .hero-ctas { animation-delay: 0.4s; }
+    .hero-proof { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="/" class="logo">Closing Map</a>
+    <div class="nav-links">
+      <a href="#calculators">Calculators</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#sellers">For sellers</a>
+      <a href="/login">Sign in</a>
+      <a href="/assessment" class="nav-cta">Get started</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Free. No sales calls. Your data stays yours.</div>
+    <h1>Know your <em>real</em> numbers before you talk to anyone</h1>
+    <p class="hero-sub">Closing costs, affordability, title insurance, mortgages. Understand everything first. Then connect with professionals who actually fit your situation.</p>
+    <div class="hero-ctas">
+      <a href="/calculator/closing-costs" class="btn-primary">
+        Get your numbers
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <a href="#how-it-works" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-stat">
+        <strong>12,400+</strong>
+        <span>Homebuyers educated</span>
+      </div>
+      <div class="proof-stat">
+        <strong>$2.1M</strong>
+        <span>In closing costs calculated</span>
+      </div>
+      <div class="proof-stat">
+        <strong>NJ & NY</strong>
+        <span>Market-specific accuracy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="problem-inner">
+      <p class="section-label">The problem</p>
+      <h2>You're about to make the biggest purchase of your life. And nobody's giving you straight answers.</h2>
+      <div class="problem-text">
+        <p>You piece together information from scattered Google searches, outdated blog posts, and friends who bought five years ago. You ask an agent and get a sales pitch. You ask a lender and get another sales pitch.</p>
+        <p>The result? Confusion, unrealistic expectations, and anxiety when you finally sit down to talk numbers. Not to mention that nagging feeling that someone's not telling you everything.</p>
+        <p>We built Closing Map because consumers deserve clarity before they're in someone's sales funnel. Learn first. Decide when you're ready.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE PROPS -->
+  <section class="value">
+    <p class="section-label">What you get</p>
+    <h2>Everything you need to buy or sell with confidence</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z" />
+          </svg>
+        </div>
+        <h3>Real closing cost numbers</h3>
+        <p>Not vague estimates. Precise calculations based on your purchase price, location, and loan type. Down to title insurance, transfer taxes, and attorney fees.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+          </svg>
+        </div>
+        <h3>Affordability clarity</h3>
+        <p>What can you actually buy given your income, debts, and down payment? Get realistic numbers before you fall in love with a house you can't afford.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+          </svg>
+        </div>
+        <h3>Full process education</h3>
+        <p>Timelines, steps, common pitfalls, what to expect. From offer to closing day, know what's coming before it happens.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+          </svg>
+        </div>
+        <h3>Professionals who fit</h3>
+        <p>When you're ready, get matched with agents, lenders, and attorneys based on your specific situation. You choose.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how-it-works">
+    <div class="how-inner">
+      <p class="section-label">How it works</p>
+      <h2>Three steps to confidence</h2>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Get your numbers</h3>
+            <p>Use our calculators to see what you'll pay at closing, what you can afford, and how different loan options compare. Takes about 2 minutes.</p>
+            <a href="/calculator/closing-costs" class="step-cta">
+              Try the closing cost calculator
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Learn the process</h3>
+            <p>Read our guides, ask questions to our AI assistant, understand the full timeline from where you are now to closing day. No jargon, no sales pitch.</p>
+            <a href="/knowledge-base" class="step-cta">
+              Browse the knowledge base
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Connect when ready</h3>
+            <p>When you've done your homework, see which professionals match your profile. Interview them knowing exactly what to ask. You're in control.</p>
+            <a href="/assessment" class="step-cta">
+              Start your assessment
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="tools" id="calculators">
+    <p class="section-label">Education tools</p>
+    <h2>Start with any of these</h2>
+    <p>Free, no sign-up required. Your data stays on your device until you decide to save it.</p>
+    <div class="tools-grid">
+      <div class="tool-card featured">
+        <div>
+          <h3>Closing Cost Calculator</h3>
+          <p>See exactly what you'll pay at closing: title insurance, transfer taxes, attorney fees, lender fees, prepaid items. Broken down line by line for NJ and NY purchases.</p>
+          <a href="/calculator/closing-costs">Calculate your costs →</a>
+        </div>
+      </div>
+      <div class="tool-card">
+        <h3>Affordability Calculator</h3>
+        <p>Based on your income, debts, and down payment, see the realistic price range you can shop in.</p>
+        <a href="/calculator/affordability">Check affordability →</a>
+      </div>
+      <div class="tool-card">
+        <h3>Mortgage Calculator</h3>
+        <p>Compare loan options, see monthly payments, understand how rates and terms affect your total cost.</p>
+        <a href="/calculator/mortgage">Compare loans →</a>
+      </div>
+      <div class="tool-card">
+        <h3>Seller Net Sheet</h3>
+        <p>Selling? See what you'll actually walk away with after commissions, payoffs, and closing costs.</p>
+        <a href="/calculator/net-sheet">Calculate your net →</a>
+      </div>
+      <div class="tool-card">
+        <h3>AI Assistant</h3>
+        <p>Have questions? Ask our AI anything about the buying or selling process. No judgment, no sales pitch.</p>
+        <a href="/assistant">Ask a question →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELLER SECTION -->
+  <section class="seller" id="sellers">
+    <div class="seller-inner">
+      <div>
+        <p class="section-label" style="color: rgba(250,248,245,0.5);">For sellers</p>
+        <h2>Become a Verified Seller before you list</h2>
+        <p>Most title issues surface at the worst possible time: right before closing. The Verified Seller Program catches problems <i>before</i> listing, when you can still fix them without killing your deal.</p>
+        <a href="/verified-seller" class="btn-primary" style="background: var(--color-sage);">Learn about Verified Seller →</a>
+      </div>
+      <div class="seller-benefits">
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <span>Pre-listing title search to surface liens, disputes, or hidden judgments</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <span>Verified badge on your listing signals transaction-readiness to buyers</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <span>No upfront cost. Title work is handled at closing.</span>
+        </div>
+        <div class="seller-benefit">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+          <span>Fewer surprises, stronger offers, smoother closings</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <h2>Ready to know your numbers?</h2>
+    <p>Start with a calculator. No account needed. When you're ready to save your results and see professional matches, we'll be here.</p>
+    <div class="hero-ctas">
+      <a href="/calculator/closing-costs" class="btn-primary">
+        Get your numbers
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <a href="/assessment" class="btn-secondary">Complete full assessment</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">Closing Map</a>
+        <p>The real estate education platform where you learn your costs, understand the process, and connect with professionals on your terms.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="/calculator/closing-costs">Closing costs</a>
+        <a href="/calculator/affordability">Affordability</a>
+        <a href="/calculator/mortgage">Mortgage</a>
+        <a href="/calculator/net-sheet">Seller net sheet</a>
+        <a href="/assistant">AI assistant</a>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="/knowledge-base">Knowledge base</a>
+        <a href="/guides/buyers">Buyer's guide</a>
+        <a href="/guides/sellers">Seller's guide</a>
+        <a href="/verified-seller">Verified Seller</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/pro">For professionals</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Closing Map. All rights reserved.</p>
+      <a href="/privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>
