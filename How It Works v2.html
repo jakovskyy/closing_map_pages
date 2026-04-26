@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works | Closing Map</title>
+  <!-- v2: Split hero with v4 calculator card. Dashboard section with v4 CRM browser-frame mockup.
+       All original How It Works copy preserved exactly. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-cream: #FAF8F5;
+      --color-ink: #1A1A18;
+      --color-ink-light: #4A4A45;
+      --color-ink-muted: #8A8A82;
+      --color-sage: #4A6B5D;
+      --color-sage-light: #E8F0EC;
+      --color-terracotta: #C4724A;
+      --color-terracotta-light: #FDF0EA;
+      --color-sand: #E8E4DC;
+      --color-blue: #2563EB;
+      --color-blue-light: #EFF6FF;
+      --color-green: #16A34A;
+      --color-green-light: #DCFCE7;
+      --color-amber: #D97706;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-ink);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--color-ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--color-ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--color-ink); }
+
+    .has-dropdown { position: relative; }
+
+    .has-dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .has-dropdown > a::after {
+      content: '';
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--color-ink-muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .has-dropdown:hover > a::after { transform: rotate(180deg); }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      left: -1rem;
+      background: white;
+      border: 1px solid rgba(26, 26, 24, 0.08);
+      border-radius: 10px;
+      padding: 0.5rem;
+      min-width: 190px;
+      box-shadow: 0 8px 24px rgba(26, 26, 24, 0.1);
+    }
+
+    .has-dropdown:hover .dropdown { display: block; }
+
+    .dropdown a {
+      display: block;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      color: var(--color-ink-light);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .dropdown a:hover { background: var(--color-cream); color: var(--color-ink); }
+
+    .nav-active { color: var(--color-ink) !important; font-weight: 500; }
+
+    .nav-cta {
+      background: var(--color-ink);
+      color: var(--color-cream) !important;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26, 26, 24, 0.15);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      padding: 9rem 2rem 5rem;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3.5rem; }
+    }
+
+    .hero-copy {}
+
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-ink-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      max-width: 16ch;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-sage);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--color-ink-light);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+
+    .hero-paths {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .path-btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .path-btn-hero.primary {
+      background: var(--color-terracotta);
+      color: white;
+    }
+
+    .path-btn-hero.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196, 114, 74, 0.25);
+    }
+
+    .path-btn-hero.secondary {
+      background: transparent;
+      color: var(--color-ink);
+      border: 1px solid var(--color-sand);
+    }
+
+    .path-btn-hero.secondary:hover { background: var(--color-sand); }
+
+    /* ─── CALCULATOR CARD (v4) ────────────────────────── */
+    .calc-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 12px 48px rgba(26, 26, 24, 0.12), 0 0 0 1px rgba(26, 26, 24, 0.04);
+      overflow: hidden;
+    }
+
+    .calc-header {
+      background: var(--color-blue);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .calc-header-left h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.2rem;
+    }
+
+    .calc-header-left p {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .calc-total-wrap { text-align: right; }
+
+    .calc-total-label {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.2rem;
+    }
+
+    .calc-total-amount {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+
+    .calc-body { padding: 1.25rem 1.5rem; }
+
+    .calc-bar-wrap { margin-bottom: 1.1rem; }
+
+    .calc-bar {
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 100px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .calc-bar-seg { height: 100%; }
+
+    .calc-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .calc-line:last-of-type { border-bottom: none; }
+
+    .calc-line-left { display: flex; align-items: center; gap: 0.6rem; }
+
+    .calc-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    .calc-line-name { font-size: 0.875rem; color: var(--color-ink-light); }
+
+    .calc-line-amt { font-size: 0.9rem; font-weight: 600; color: var(--color-ink); }
+
+    .calc-footer {
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      padding: 1rem 1.5rem;
+    }
+
+    .calc-cta-btn {
+      width: 100%;
+      display: block;
+      text-align: center;
+      background: var(--color-blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-body);
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .calc-cta-btn:hover { opacity: 0.9; }
+
+    .calc-note {
+      font-size: 0.7rem;
+      color: var(--color-ink-muted);
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+
+    /* ─── DIVIDER ─────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--color-sand);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ─── PATH TOGGLE ─────────────────────────────────── */
+    .path-toggle-wrap {
+      background: var(--color-cream);
+      padding: 3rem 2rem 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .path-toggle {
+      display: inline-flex;
+      background: var(--color-sand);
+      border-radius: 10px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .toggle-btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: 7px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: transparent;
+      color: var(--color-ink-light);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: white;
+      color: var(--color-ink);
+      box-shadow: 0 1px 4px rgba(26, 26, 24, 0.1);
+    }
+
+    /* ─── STEPS ───────────────────────────────────────── */
+    .steps-section {
+      padding: 3rem 2rem 6rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .path-content { display: none; }
+    .path-content.active { display: block; }
+
+    .phase-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-ink-muted);
+      margin-bottom: 1.75rem;
+      margin-top: 3.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--color-sand);
+    }
+
+    .phase-label:first-child { margin-top: 0; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 2rem;
+      padding: 2.25rem 0;
+      border-bottom: 1px solid rgba(26, 26, 24, 0.06);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      font-weight: 600;
+      color: var(--color-sage);
+      line-height: 1;
+      padding-top: 0.1rem;
+    }
+
+    .step-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+      line-height: 1.25;
+    }
+
+    .step-body p {
+      color: var(--color-ink-light);
+      font-size: 0.975rem;
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    .step-tag {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      background: var(--color-sage-light);
+      color: var(--color-sage);
+    }
+
+    .step-tag.terracotta {
+      background: var(--color-terracotta-light);
+      color: var(--color-terracotta);
+    }
+
+    /* ─── DASHBOARD SECTION ───────────────────────────── */
+    .dashboard-section {
+      background: var(--color-sage-light);
+      padding: 6rem 2rem;
+    }
+
+    .dashboard-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .dashboard-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .dashboard-left {}
+
+    .dashboard-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .dashboard-section .dashboard-left p {
+      color: var(--color-ink-light);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .dashboard-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .dash-feature {
+      background: white;
+      border-radius: 10px;
+      padding: 1.1rem 1.35rem;
+      border: 1px solid rgba(74, 107, 93, 0.12);
+    }
+
+    .dash-feature h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-feature p {
+      font-size: 0.85rem;
+      color: var(--color-ink-muted);
+      line-height: 1.5;
+      margin: 0 !important;
+    }
+
+    /* ─── BROWSER FRAME + CRM MOCKUP (v4) ────────────── */
+    .browser-frame {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(26, 26, 24, 0.15), 0 0 0 1px rgba(26, 26, 24, 0.06);
+    }
+
+    .browser-chrome {
+      background: #F1F3F5;
+      padding: 0.6rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .browser-dots { display: flex; gap: 5px; flex-shrink: 0; }
+
+    .browser-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .browser-dot.red { background: #FF5F57; }
+    .browser-dot.yellow { background: #FEBC2E; }
+    .browser-dot.green { background: #28C840; }
+
+    .browser-url {
+      flex: 1;
+      background: white;
+      border: 1px solid #E2E8F0;
+      border-radius: 5px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.7rem;
+      color: var(--color-ink-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .browser-tabs {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .browser-tab {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      color: var(--color-ink-muted);
+      cursor: pointer;
+    }
+
+    .browser-tab.active {
+      background: white;
+      color: var(--color-ink);
+      font-weight: 500;
+      border: 1px solid #E2E8F0;
+    }
+
+    /* CRM App */
+    .crm-app {
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .crm-topbar {
+      background: #1e3a5f;
+      padding: 0.6rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .crm-logo {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .crm-nav {
+      display: flex;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .crm-nav-link {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.65);
+      cursor: pointer;
+      padding: 0.15rem 0;
+    }
+
+    .crm-nav-link.active { color: white; font-weight: 500; border-bottom: 2px solid rgba(255,255,255,0.5); }
+
+    .crm-status-chips {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .crm-chip {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .crm-chip.amber { background: rgba(217,119,6,0.25); border-color: rgba(217,119,6,0.4); color: #FCD34D; }
+
+    /* CRM Body */
+    .crm-body {
+      display: grid;
+      grid-template-columns: 185px 1fr 195px;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .crm-sidebar {
+      background: white;
+      border-right: 1px solid #E2E8F0;
+      padding: 0.85rem;
+    }
+
+    .crm-prop-block {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .crm-prop-block .name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.2rem;
+    }
+
+    .crm-prop-block .meta {
+      font-size: 0.63rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.45rem;
+    }
+
+    .crm-micro-badge {
+      padding: 0.18rem 0.45rem;
+      border-radius: 3px;
+      font-size: 0.62rem;
+      font-weight: 600;
+    }
+
+    .crm-micro-badge.blue { background: rgba(255,255,255,0.18); color: white; }
+    .crm-micro-badge.green { background: #16A34A; color: white; }
+
+    .crm-sidebar-head {
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-ink-muted);
+      margin-bottom: 0.45rem;
+      margin-top: 0.85rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .crm-step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--color-ink-light);
+      padding: 0.25rem 0;
+    }
+
+    .crm-step-check {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      border: 1.5px solid #CBD5E1;
+      background: white;
+    }
+
+    .crm-step-check.done {
+      background: var(--color-green);
+      border-color: var(--color-green);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: 9px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .crm-step-item.done span { color: var(--color-ink-muted); text-decoration: line-through; }
+
+    .crm-tool-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--color-blue);
+      padding: 0.25rem 0;
+      cursor: pointer;
+    }
+
+    /* CRM Main */
+    .crm-main {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .crm-card {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+      padding: 0.85rem;
+    }
+
+    .crm-card-head {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .crm-card-head.green { color: #15803D; }
+    .crm-card-head.blue { color: #1D4ED8; }
+
+    .crm-head-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .crm-head-dot.green { background: #16A34A; }
+    .crm-head-dot.blue { background: #2563EB; }
+
+    .crm-focus-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #F8FAFC;
+      font-size: 0.72rem;
+      line-height: 1.45;
+    }
+
+    .crm-focus-row:last-child { border-bottom: none; }
+
+    .crm-focus-ico {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.58rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+
+    .crm-focus-ico.check { background: var(--color-green-light); color: var(--color-green); }
+    .crm-focus-ico.pending { background: #F8FAFC; border: 1.5px solid #CBD5E1; }
+
+    .crm-input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.72rem;
+      color: var(--color-ink-muted);
+      cursor: text;
+    }
+
+    .crm-action-row { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+
+    .crm-action-chip {
+      flex: 1;
+      background: var(--color-blue-light);
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      padding: 0.35rem 0.4rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--color-blue);
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* CRM Right */
+    .crm-right {
+      border-left: 1px solid #E2E8F0;
+      background: white;
+      padding: 1rem;
+    }
+
+    .crm-delay-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: var(--color-ink);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #F1F5F9;
+      line-height: 1.4;
+    }
+
+    .crm-delay-row:last-of-type { border-bottom: none; }
+
+    .crm-delay-pill {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-amber);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .readiness-ring-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+
+    .readiness-ring {
+      width: 52px;
+      height: 52px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .readiness-ring svg { transform: rotate(-90deg); }
+
+    .readiness-ring-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .readiness-label strong {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--color-ink);
+    }
+
+    .readiness-label span {
+      font-size: 0.65rem;
+      color: var(--color-ink-muted);
+      line-height: 1.4;
+    }
+
+    .crm-bottom-bar {
+      background: #1e3a5f;
+      padding: 0.55rem 1.1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .crm-bottom-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.75);
+      padding: 0.3rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .crm-bottom-btn.active { background: white; color: #1e3a5f; }
+
+    /* ─── HANDOFF SECTION ─────────────────────────────── */
+    .handoff {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 6rem 2rem;
+    }
+
+    .handoff-inner { max-width: 760px; margin: 0 auto; }
+
+    .handoff .section-label {
+      color: rgba(250, 248, 245, 0.45);
+      margin-bottom: 1.5rem;
+    }
+
+    .handoff h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.75rem;
+    }
+
+    .handoff p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(250, 248, 245, 0.78);
+      max-width: 620px;
+    }
+
+    .handoff p + p { margin-top: 1.25rem; }
+
+    .carry-forward {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .carry-item {
+      background: rgba(250, 248, 245, 0.06);
+      border: 1px solid rgba(250, 248, 245, 0.1);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .carry-item span {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(250, 248, 245, 0.4);
+      margin-bottom: 0.4rem;
+    }
+
+    .carry-item strong {
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(250, 248, 245, 0.92);
+    }
+
+    /* ─── FAQ ─────────────────────────────────────────── */
+    .faq {
+      padding: 6rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .faq h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+      font-weight: 400;
+      margin-bottom: 3rem;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-sand);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.4rem 0;
+      text-align: left;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--color-ink);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--color-ink-muted);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      display: none;
+      padding-bottom: 1.5rem;
+      color: var(--color-ink-light);
+      font-size: 0.975rem;
+      line-height: 1.7;
+      max-width: 580px;
+    }
+
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ─── FINAL CTA ───────────────────────────────────── */
+    .cta-section {
+      background: var(--color-sand);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--color-ink-light);
+      font-size: 1.05rem;
+      margin-bottom: 2.25rem;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--color-terracotta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196, 114, 74, 0.25);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-ink);
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(26, 26, 24, 0.2);
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover { background: rgba(26, 26, 24, 0.05); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--color-ink);
+      color: var(--color-cream);
+      padding: 4rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    .footer-brand .logo { color: var(--color-cream); display: inline-block; margin-bottom: 1rem; }
+
+    .footer-brand p {
+      color: rgba(250, 248, 245, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(250, 248, 245, 0.5);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(250, 248, 245, 0.8);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.35rem 0;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--color-cream); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(250, 248, 245, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p, .footer-bottom a {
+      color: rgba(250, 248, 245, 0.4);
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    /* ─── ANIMATION ───────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-copy > * { animation: fadeUp 0.55s ease-out backwards; }
+    .hero-copy .section-label { animation-delay: 0.1s; }
+    .hero-copy h1 { animation-delay: 0.2s; }
+    .hero-copy .hero-sub { animation-delay: 0.3s; }
+    .hero-copy .hero-paths { animation-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      .step { grid-template-columns: 52px 1fr; gap: 1.25rem; }
+      .step-num { font-size: 2rem; }
+      nav .nav-links { gap: 1rem; }
+      .crm-body { grid-template-columns: 1fr; }
+      .crm-sidebar, .crm-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">Closing Map</a>
+    <div class="nav-links">
+      <div class="has-dropdown">
+        <a href="/calculators">Calculators</a>
+        <div class="dropdown">
+          <a href="/calculator/closing-costs">Closing costs</a>
+          <a href="/calculator/affordability">Affordability</a>
+          <a href="/calculator/mortgage">Mortgage</a>
+          <a href="/calculator/net-sheet">Seller net sheet</a>
+        </div>
+      </div>
+      <a href="/how-it-works" class="nav-active">How it works</a>
+      <a href="/knowledge-base">Knowledge Base</a>
+      <a href="/login">Sign in</a>
+      <a href="/assessment" class="nav-cta">Get started</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- HERO — Split: copy left, calculator card right     -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <!-- LEFT: original hero copy, unchanged -->
+      <div class="hero-copy">
+        <p class="section-label">How it works</p>
+        <h1>From your first question to <em>closing day</em></h1>
+        <p class="hero-sub">Closing Map maps the whole path. Start with a calculator or take the full assessment. Either way, you'll understand the process, know your numbers, and be in a stronger position before you talk to anyone.</p>
+        <div class="hero-paths">
+          <button class="path-btn-hero primary" onclick="setPath('buyer'); document.getElementById('path-section').scrollIntoView({behavior:'smooth'})">I'm buying a home</button>
+          <button class="path-btn-hero secondary" onclick="setPath('seller'); document.getElementById('path-section').scrollIntoView({behavior:'smooth'})">I'm selling a home</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: v4 calculator card -->
+      <div class="calc-card">
+        <div class="calc-header">
+          <div class="calc-header-left">
+            <h3>Closing Cost Estimate</h3>
+            <p>$650K &middot; NJ &middot; Conventional purchase</p>
+          </div>
+          <div class="calc-total-wrap">
+            <div class="calc-total-label">Estimated total</div>
+            <div class="calc-total-amount">$18,750</div>
+          </div>
+        </div>
+        <div class="calc-body">
+          <div class="calc-bar-wrap">
+            <div class="calc-bar">
+              <div class="calc-bar-seg" style="width:33%; background:#2563EB;"></div>
+              <div class="calc-bar-seg" style="width:24%; background:#7C3AED;"></div>
+              <div class="calc-bar-seg" style="width:31%; background:#D97706;"></div>
+              <div class="calc-bar-seg" style="width:12%; background:#94A3B8;"></div>
+            </div>
+          </div>
+          <div class="calc-line">
+            <div class="calc-line-left">
+              <div class="calc-dot" style="background:#2563EB;"></div>
+              <span class="calc-line-name">Title &amp; Settlement</span>
+            </div>
+            <span class="calc-line-amt">$6,200</span>
+          </div>
+          <div class="calc-line">
+            <div class="calc-line-left">
+              <div class="calc-dot" style="background:#7C3AED;"></div>
+              <span class="calc-line-name">Lender Fees</span>
+            </div>
+            <span class="calc-line-amt">$4,500</span>
+          </div>
+          <div class="calc-line">
+            <div class="calc-line-left">
+              <div class="calc-dot" style="background:#D97706;"></div>
+              <span class="calc-line-name">Taxes &amp; Recording</span>
+            </div>
+            <span class="calc-line-amt">$5,800</span>
+          </div>
+          <div class="calc-line">
+            <div class="calc-line-left">
+              <div class="calc-dot" style="background:#94A3B8;"></div>
+              <span class="calc-line-name">Miscellaneous</span>
+            </div>
+            <span class="calc-line-amt">$2,250</span>
+          </div>
+        </div>
+        <div class="calc-footer">
+          <a href="/calculator/closing-costs" class="calc-cta-btn">Run your own estimate</a>
+          <p class="calc-note">Free &middot; No account required &middot; Takes about 2 minutes</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PATH TOGGLE -->
+  <div class="path-toggle-wrap" id="path-section">
+    <div class="path-toggle">
+      <button class="toggle-btn active" id="toggle-buyer" onclick="setPath('buyer')">Buying a home</button>
+      <button class="toggle-btn" id="toggle-seller" onclick="setPath('seller')">Selling a home</button>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-section">
+
+    <!-- BUYER PATH -->
+    <div class="path-content active" id="path-buyer">
+
+      <p class="phase-label">Before you create an account</p>
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Run the calculators</h3>
+          <p>Start with the closing cost calculator, the affordability calculator, or the mortgage comparison tool. These are free, no login required, and built specifically for NJ and NY transactions. You'll see real numbers: title insurance, transfer taxes, attorney fees, lender charges — broken down line by line. Most buyers don't see this level of detail until they're already under contract. You can start here.</p>
+          <span class="step-tag">No account needed</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Take the assessment</h3>
+          <p>Eight questions, about two minutes. Have you spoken to a lender? Do you have an agent? What price range are you considering? There's no wrong answer and no pressure to be further along than you are. The assessment is how Closing Map figures out what to show you first and what can wait. At the end, you're invited to create an account and save your results.</p>
+          <span class="step-tag">Takes about 2 minutes</span>
+        </div>
+      </div>
+
+      <p class="phase-label">After you create your account</p>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Get your readiness score and dashboard</h3>
+          <p>After the assessment, your personalized ClosingMap dashboard is generated. Your readiness score reflects how prepared you are to move when the right property comes along. Your journey tracker shows every stage between now and closing day. Your next recommended action is surfaced prominently. As you make progress, your score advances. Nothing resets.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Build your profile</h3>
+          <p>Your profile is made up of five components: a team (your agent, loan officer, and closing attorney), a document vault (government ID, financial records, pre-approval letter, and agency disclosures), a properties watchlist, a showings calendar, and a financing track. The assessment pre-fills what the system already knows from your answers. It flags what's still missing and tells you what to gather next. You're never starting from a blank form.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Track properties on your watchlist</h3>
+          <p>Add any property to your watchlist by pasting a link or entering an address. Your agent can also add properties directly. Each property has its own card showing address, price, and current status — from "browsing" through "offer submitted." You can track as many as you want. Nothing becomes a transaction until an offer is submitted and accepted.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <h3>Connect with professionals when you're ready</h3>
+          <p>Once your profile is built out, Closing Map surfaces recommended agents, lenders, and attorneys tailored to your budget, location, timeline, and property type. You decide who you want to talk to. Nobody buys your contact information. Nobody is paying to appear on your list.</p>
+          <span class="step-tag">You choose. No pressure.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-body">
+          <h3>Offer accepted. Your preparation becomes the deal.</h3>
+          <p>When an offer is submitted and accepted, your watchlist property transitions into an active transaction. The deal sheet generates automatically. Your contract is drafted and sent for signatures. Once signed, the coordination work begins across your full team: agent, lender, attorney, and title. Your profile, your team, your documents, and your preparation all carry forward. You don't re-enter anything.</p>
+          <span class="step-tag terracotta">The finish line</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SELLER PATH -->
+    <div class="path-content" id="path-seller">
+
+      <p class="phase-label">Before you create an account</p>
+
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Start with the net sheet</h3>
+          <p>Before anything else, run the seller net sheet. Enter your asking price, your mortgage payoff balance, and your location. The calculator returns your projected proceeds after commissions, closing costs, transfer taxes, and payoff. Most sellers don't find out their real net until they're sitting at the closing table. You can find out now, free, no account required.</p>
+          <span class="step-tag">No account needed</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Take the assessment</h3>
+          <p>Six questions about where you are in the process. Are you selling immediately or still planning? Do you have an agent? What steps have you already taken? The assessment is short and meets you wherever you are. It also asks whether you'd like to make your listing more competitive — that's where the Verified Seller Program gets introduced.</p>
+          <span class="step-tag">Takes about 2 minutes</span>
+        </div>
+      </div>
+
+      <p class="phase-label">After you create your account</p>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Get your readiness score and dashboard</h3>
+          <p>Your seller dashboard shows your readiness score and the full path ahead: listing strategy, inspection, title and escrow, closing preparation, and closing day. Your next recommended step is surfaced prominently. As you complete steps — gathering documents, connecting with your agent, completing title work — your score advances.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h3>Build your seller profile</h3>
+          <p>Your document vault collects the papers sellers need at closing: the deed, current property tax bills, existing mortgage information, your prior title policy, any existing survey, a capital improvements list, and utility records. Your team includes your listing agent, your closing attorney, and — if applicable — a title company. The system tells you what's complete and what's still outstanding.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h3>Consider the Verified Seller Program</h3>
+          <p>Most title issues surface one to two weeks before closing — when there's no time and no good options. Closing Map's Verified Seller Program runs a preliminary title search before you list. If there's a lien, an outstanding judgment, or a gap in the chain of title, you'll know while you still have time to fix it. Sellers who complete the process receive a Verified Seller badge that signals transaction-readiness to buyers and their agents. Problems found before listing are far easier to resolve than problems found the week before closing.</p>
+          <span class="step-tag terracotta">Strongly recommended</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <h3>List, accept, and hand off</h3>
+          <p>Once your property is listed and an offer comes in, you review and accept it from your dashboard. At that point, the deal moves forward — contract drafting, signatures, and the coordination work that takes a transaction from signed contract to closing day. Your documents carry forward. Your team carries forward. You don't restart from scratch.</p>
+          <span class="step-tag terracotta">The finish line</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- DASHBOARD — original text + v4 CRM mockup right   -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <section class="dashboard-section">
+    <div class="dashboard-inner">
+
+      <!-- LEFT: original text + feature cards, unchanged -->
+      <div class="dashboard-left">
+        <p class="section-label">Your dashboard</p>
+        <h2>Everything in one place, from day one to closing day</h2>
+        <p>After the assessment, everything you've built lives on your ClosingMap dashboard. Your readiness score shows how prepared you are. Your journey tracker shows what's done and what's next. And everything stays current as your situation changes.</p>
+        <p>If you have questions along the way, the AI ClosingMap Guide is available directly from your dashboard. It can answer questions about the process, your documents, and your next steps — and if you need more than a quick answer, it can connect you with a human Closing Advisor.</p>
+        <div class="dashboard-features">
+          <div class="dash-feature">
+            <h4>Readiness Score</h4>
+            <p>A live measure of how prepared you are to move. Advances as your profile fills in.</p>
+          </div>
+          <div class="dash-feature">
+            <h4>Journey Tracker</h4>
+            <p>Every stage from pre-approval to closing day, mapped in order. You always know where you are.</p>
+          </div>
+          <div class="dash-feature">
+            <h4>Document Vault</h4>
+            <p>Secure storage for all your transaction documents. Upload once, use everywhere.</p>
+          </div>
+          <div class="dash-feature">
+            <h4>AI ClosingMap Guide</h4>
+            <p>Ask it anything about the process. No judgment, no sales pitch, no jargon.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: v4 CRM browser-frame mockup -->
+      <div class="browser-frame">
+        <!-- Browser chrome -->
+        <div class="browser-chrome">
+          <div class="browser-dots">
+            <div class="browser-dot red"></div>
+            <div class="browser-dot yellow"></div>
+            <div class="browser-dot green"></div>
+          </div>
+          <div class="browser-url">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            app.closingmap.com/dashboard
+          </div>
+          <div class="browser-tabs">
+            <span class="browser-tab active">Dashboard</span>
+            <span class="browser-tab">Vault</span>
+            <span class="browser-tab">Team</span>
+          </div>
+        </div>
+
+        <!-- CRM App -->
+        <div class="crm-app">
+          <!-- Topbar -->
+          <div class="crm-topbar">
+            <span class="crm-logo">Closing Map</span>
+            <div class="crm-nav">
+              <span class="crm-nav-link active">Dashboard</span>
+              <span class="crm-nav-link">Documents</span>
+              <span class="crm-nav-link">My Team</span>
+              <span class="crm-nav-link">Properties</span>
+            </div>
+            <div class="crm-status-chips">
+              <span class="crm-chip">David M.</span>
+              <span class="crm-chip amber">2 alerts</span>
+            </div>
+          </div>
+
+          <!-- Body: 3 columns -->
+          <div class="crm-body">
+
+            <!-- Sidebar -->
+            <div class="crm-sidebar">
+              <div class="crm-prop-block">
+                <div class="name">David M.</div>
+                <div class="meta">$750K &middot; Morris County, NJ</div>
+                <span class="crm-micro-badge blue">Pre-Offer</span>
+              </div>
+
+              <div class="crm-sidebar-head">Next steps</div>
+              <div class="crm-step-item"><div class="crm-step-check done"></div><span>Run closing cost calc</span></div>
+              <div class="crm-step-item"><div class="crm-step-check"></div><span>Upload pre-approval letter</span></div>
+              <div class="crm-step-item"><div class="crm-step-check"></div><span>Select a buyer's agent</span></div>
+              <div class="crm-step-item"><div class="crm-step-check"></div><span>Complete profile</span></div>
+
+              <div class="crm-sidebar-head">Tools</div>
+              <div class="crm-tool-link">&#x2192; Closing cost calculator</div>
+              <div class="crm-tool-link">&#x2192; Affordability calculator</div>
+              <div class="crm-tool-link">&#x2192; Knowledge base</div>
+            </div>
+
+            <!-- Main -->
+            <div class="crm-main">
+              <div class="crm-card">
+                <div class="crm-card-head green">
+                  <div class="crm-head-dot green"></div>
+                  What to Focus on Now
+                </div>
+                <div class="crm-focus-row"><div class="crm-focus-ico check">&#10003;</div>Closing cost estimate complete — $18,750 projected</div>
+                <div class="crm-focus-row"><div class="crm-focus-ico check">&#10003;</div>Assessment complete — readiness score generated</div>
+                <div class="crm-focus-row"><div class="crm-focus-ico pending"></div>Pre-approval letter not yet uploaded</div>
+                <div class="crm-focus-row"><div class="crm-focus-ico pending"></div>Buyer's agent not yet selected</div>
+              </div>
+
+              <div class="crm-card">
+                <div class="crm-card-head blue">
+                  <div class="crm-head-dot blue"></div>
+                  Ask the Closing Advisor
+                </div>
+                <div class="crm-input-row">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  Ask a question about your transaction...
+                </div>
+                <div class="crm-action-row">
+                  <div class="crm-action-chip">What are transfer taxes?</div>
+                  <div class="crm-action-chip">Do I need an attorney?</div>
+                  <div class="crm-action-chip">Timeline to close</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right panel -->
+            <div class="crm-right">
+              <div style="font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-ink-muted); margin-bottom:0.5rem;">Watch items</div>
+              <div class="crm-delay-row"><div class="crm-delay-pill"></div>Pre-approval not uploaded</div>
+              <div class="crm-delay-row"><div class="crm-delay-pill"></div>Agent selection pending</div>
+              <div class="crm-delay-row"><div class="crm-delay-pill"></div>Profile 40% complete</div>
+
+              <div class="readiness-ring-wrap">
+                <div class="readiness-ring">
+                  <svg width="52" height="52" viewBox="0 0 52 52">
+                    <circle cx="26" cy="26" r="20" fill="none" stroke="#E2E8F0" stroke-width="5"/>
+                    <circle cx="26" cy="26" r="20" fill="none" stroke="#2563EB" stroke-width="5"
+                      stroke-dasharray="125.66"
+                      stroke-dashoffset="83"
+                      stroke-linecap="round"/>
+                  </svg>
+                  <div class="readiness-ring-text">34%</div>
+                </div>
+                <div class="readiness-label">
+                  <strong>Readiness Score</strong>
+                  <span>Upload your pre-approval to advance</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /crm-body -->
+
+          <!-- Bottom nav bar -->
+          <div class="crm-bottom-bar">
+            <button class="crm-bottom-btn active">Dashboard</button>
+            <button class="crm-bottom-btn">Documents</button>
+            <button class="crm-bottom-btn">Properties</button>
+            <button class="crm-bottom-btn">Team</button>
+          </div>
+
+        </div><!-- /crm-app -->
+      </div><!-- /browser-frame -->
+
+    </div>
+  </section>
+
+  <!-- HANDOFF -->
+  <section class="handoff">
+    <div class="handoff-inner">
+      <p class="section-label">When a deal is under contract</p>
+      <h2>The work you did here goes with you</h2>
+      <p>When a property enters an active transaction — offer accepted, contract signed — the coordination work begins across your full team. Your attorney, your agent, your lender, your title professional. That process runs through inspection, title work, financing, and closing day.</p>
+      <p>What you built in Closing Map goes with it. The agent you chose is the agent running your deal. The pre-approval you uploaded is the one your attorney sees. The disclosures you already signed are already signed. Nobody restarts from zero. The preparation you did here is the preparation everyone else works from.</p>
+      <div class="carry-forward">
+        <div class="carry-item">
+          <span>Carries forward</span>
+          <strong>Your team</strong>
+        </div>
+        <div class="carry-item">
+          <span>Carries forward</span>
+          <strong>Your documents</strong>
+        </div>
+        <div class="carry-item">
+          <span>Carries forward</span>
+          <strong>Your profile</strong>
+        </div>
+        <div class="carry-item">
+          <span>Carries forward</span>
+          <strong>Your preparation</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Common questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is Closing Map free?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">The calculators, the knowledge base, and the AI Guide are all free. No account required. You create a profile when you're ready to save your results and start building toward a transaction.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do I have to work with the professionals Closing Map recommends?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">No. If you already have an agent, lender, or attorney you trust, bring them in directly — they can be added to your profile and invited into your deal. Matching is a service we provide to consumers who want help finding someone, not a requirement.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Do I need to be pre-approved before I start?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">No. You can start anywhere: with a calculator, with the knowledge base, with the assessment. The platform meets you where you are. If you're not pre-approved yet, Closing Map will surface that as a recommended next step and show you what gathering the right documents looks like.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What happens to my data?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">Your data is yours. Closing Map does not sell your contact information or financial details to real estate professionals. The matching feature is a tool we give to consumers — not a pipeline that agents or lenders buy access to.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Is Closing Map available outside NJ and NY?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">The calculators are currently built for NJ and NY transactions — that's where the calculation logic is market-specific and accurate down to line items. We'll expand from there. The knowledge base and AI Guide are available regardless of location.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        What is the Verified Seller Program and do I need it?
+        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      <div class="faq-answer">Verified Seller is a pre-listing preparation step for sellers. Closing Map runs a preliminary title search on your property before it goes to market. Any liens, judgment issues, or chain-of-title gaps are surfaced while you still have time to resolve them. Sellers who complete it receive a badge on their listing. It's optional, but it tends to make for fewer surprises and stronger offers.</div>
+    </div>
+
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to start?</h2>
+      <p>Take the assessment. It takes about two minutes and gets you a readiness score, a personalized dashboard, and a clear picture of what comes next — for you, at your price range, in your market.</p>
+      <div class="cta-buttons">
+        <a href="/assessment" class="btn-primary">
+          Start the assessment
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/calculator/closing-costs" class="btn-secondary">Run a calculator first</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo">Closing Map</a>
+        <p>The real estate education platform where you learn your costs, understand the process, and connect with professionals on your terms.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tools</h4>
+        <a href="/calculator/closing-costs">Closing costs</a>
+        <a href="/calculator/affordability">Affordability</a>
+        <a href="/calculator/mortgage">Mortgage</a>
+        <a href="/calculator/net-sheet">Seller net sheet</a>
+        <a href="/assistant">AI Guide</a>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <a href="/knowledge-base">Knowledge base</a>
+        <a href="/guides/buyers">Buyer's guide</a>
+        <a href="/guides/sellers">Seller's guide</a>
+        <a href="/verified-seller">Verified Seller</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/pro">For professionals</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2026 Closing Map. All rights reserved.</p>
+      <a href="/privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script>
+    function setPath(path) {
+      document.getElementById('toggle-buyer').classList.toggle('active', path === 'buyer');
+      document.getElementById('toggle-seller').classList.toggle('active', path === 'seller');
+      document.getElementById('path-buyer').classList.toggle('active', path === 'buyer');
+      document.getElementById('path-seller').classList.toggle('active', path === 'seller');
+    }
+
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
