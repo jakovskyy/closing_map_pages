@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial Property Preferences</title>
+<style>
+  :root{
+    --ink:#1a2233; --muted:#6b7280; --line:#e5e7eb; --bg:#f4f6f8;
+    --card:#ffffff; --green:#2f855a; --green-soft:#e8f2ec;
+    --must:#2f9e6f; --nice:#d98a2b; --deal:#d64545; --dont:#c2c8d0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45;padding:32px 16px}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted);
+    margin-bottom:20px;align-items:center}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .dot.must{background:var(--must)} .dot.nice{background:var(--nice)}
+  .dot.deal{background:var(--deal)} .dot.dont{background:var(--dont)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;margin-bottom:16px}
+  .sect{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    font-weight:700;margin:0 0 14px}
+  label.field{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+  .hint{font-size:12px;color:var(--muted);font-weight:400}
+  input[type=text],input[type=number],select,textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;
+    font-size:15px;font-family:inherit;background:#fafbfc;color:var(--ink)}
+  textarea{min-height:70px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fieldblock{margin-bottom:16px}
+  .fieldblock:last-child{margin-bottom:0}
+  .with-pri{display:flex;align-items:flex-end;gap:12px}
+  .with-pri .grow{flex:1}
+  .pri{display:flex;gap:6px;padding-bottom:10px}
+  .pri button{width:16px;height:16px;border-radius:50%;border:1px solid var(--line);
+    background:#eef1f4;cursor:pointer;padding:0}
+  .pri button.on.must{background:var(--must);border-color:var(--must)}
+  .pri button.on.nice{background:var(--nice);border-color:var(--nice)}
+  .pri button.on.deal{background:var(--deal);border-color:var(--deal)}
+  .pri button.on.dont{background:var(--dont);border-color:var(--dont)}
+  .toggle{display:flex;gap:10px;flex-wrap:wrap}
+  .toggle label{border:1px solid var(--line);border-radius:9px;padding:9px 14px;
+    font-size:14px;cursor:pointer;background:#fafbfc}
+  .toggle input{display:none}
+  .toggle input:checked + span{font-weight:700}
+  .toggle label:has(input:checked){border-color:var(--green);background:var(--green-soft)}
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .feat .f{display:flex;justify-content:space-between;align-items:center;
+    border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px}
+  .feat .wd{display:flex;gap:6px}
+  .feat .wd button{font-size:12px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);
+    background:#fafbfc;cursor:pointer}
+  .feat .wd button.want.on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+  .feat .wd button.no.on{background:#fbecec;border-color:var(--deal);color:var(--deal)}
+  .assetbar{display:flex;gap:10px;margin-bottom:16px}
+  .assetbar label{flex:1;text-align:center;border:1px solid var(--line);border-radius:11px;
+    padding:14px;font-weight:700;cursor:pointer;background:var(--card)}
+  .assetbar input{display:none}
+  .assetbar label:has(input:checked){border-color:var(--green);background:var(--green-soft);color:var(--green)}
+  .hide{display:none}
+  .save{background:var(--green);color:#fff;border:none;border-radius:10px;
+    padding:13px 26px;font-size:15px;font-weight:700;cursor:pointer;float:right}
+  .foot{overflow:hidden;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Commercial Property Preferences</h1>
+  <p class="sub">Tell us what you're after. Your agent uses this to find close matches. Mark how much each item matters using the dots on the right.</p>
+
+  <div class="legend">
+    <span><i class="dot must"></i> Must-have</span>
+    <span><i class="dot nice"></i> Nice-to-have</span>
+    <span><i class="dot deal"></i> Deal-breaker</span>
+    <span><i class="dot dont"></i> Don't care</span>
+    <span class="hint">(click a dot again to clear)</span>
+  </div>
+
+  <div class="assetbar">
+    <label><input type="radio" name="asset" value="retail" checked onchange="switchAsset()">Retail</label>
+    <label><input type="radio" name="asset" value="land" onchange="switchAsset()">Vacant Land</label>
+  </div>
+
+  <!-- SHARED -->
+  <div class="card">
+    <p class="sect">The basics</p>
+    <div class="fieldblock">
+      <label class="field">Intended use <span class="hint">what you plan to do there</span></label>
+      <input type="text" placeholder="e.g. open a quick-service restaurant, lease it out, hold and develop">
+    </div>
+    <div class="fieldblock">
+      <label class="field">Preferred areas / corridors</label>
+      <input type="text" placeholder="e.g. Steinway St, Astoria; Northern Blvd">
+    </div>
+    <div class="row">
+      <div class="fieldblock">
+        <label class="field">Max price ($)</label>
+        <input type="number" placeholder="1,200,000">
+      </div>
+      <div class="fieldblock">
+        <label class="field">Min price ($) <span class="hint">optional</span></label>
+        <input type="number" placeholder="e.g. 700,000">
+      </div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Permitted use <span class="hint">must it already allow your use, or are you open to sorting out permitting?</span></label>
+      <div class="with-pri">
+        <div class="grow">
+          <select>
+            <option>Must already allow my use</option>
+            <option>Open to sorting out permitting</option>
+            <option>Not sure</option>
+          </select>
+        </div>
+        <div class="pri" data-pri></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETAIL -->
+  <div class="card" id="retail">
+    <p class="sect">Retail specifics</p>
+    <div class="row">
+      <div class="fieldblock">
+        <label class="field">Min size (sq ft)</label>
+        <div class="with-pri"><div class="grow"><input type="number" placeholder="1,500"></div><div class="pri" data-pri></div></div>
+      </div>
+      <div class="fieldblock">
+        <label class="field">Max size (sq ft)</label>
+        <input type="number" placeholder="e.g. 3,000">
+      </div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Frontage / visibility</label>
+      <div class="with-pri"><div class="grow"><input type="text" placeholder="e.g. corner lot, main-road exposure"></div><div class="pri" data-pri></div></div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Parking</label>
+      <div class="with-pri"><div class="grow"><input type="text" placeholder="e.g. dedicated lot, 10+ spaces"></div><div class="pri" data-pri></div></div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Delivery</label>
+      <select>
+        <option>Vacant / empty</option>
+        <option>With tenants in place</option>
+        <option>Either is fine</option>
+      </select>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Features <span class="hint">want it or don't want it</span></label>
+      <div class="feat" data-feat>
+        <div class="f">Restrooms <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+        <div class="f">HVAC <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+        <div class="f">Loading access <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+        <div class="f">ADA access <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+        <div class="f">Signage rights <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+        <div class="f">Drive-thru <span class="wd"><button class="want">Want</button><button class="no">Skip</button></span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="fieldblock">
+        <label class="field">Built after (year) <span class="hint">optional</span></label>
+        <input type="number" placeholder="e.g. 1990">
+      </div>
+      <div class="fieldblock">
+        <label class="field">Min condition</label>
+        <select><option>— Any —</option><option>Turnkey</option><option>Light work OK</option><option>Full reno OK</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAND -->
+  <div class="card hide" id="land">
+    <p class="sect">Vacant land specifics</p>
+    <div class="row">
+      <div class="fieldblock">
+        <label class="field">Lot size</label>
+        <div class="with-pri"><div class="grow"><input type="text" placeholder="e.g. 0.5 acres"></div><div class="pri" data-pri></div></div>
+      </div>
+      <div class="fieldblock">
+        <label class="field">Measured in</label>
+        <select><option>Acres</option><option>Square feet</option></select>
+      </div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Utilities on site <span class="hint">want it or don't need it</span></label>
+      <div class="feat" data-feat>
+        <div class="f">Water <span class="wd"><button class="want">Want</button><button class="no">N/A</button></span></div>
+        <div class="f">Sewer <span class="wd"><button class="want">Want</button><button class="no">N/A</button></span></div>
+        <div class="f">Electric <span class="wd"><button class="want">Want</button><button class="no">N/A</button></span></div>
+        <div class="f">Gas <span class="wd"><button class="want">Want</button><button class="no">N/A</button></span></div>
+      </div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Road access / frontage</label>
+      <div class="with-pri"><div class="grow"><input type="text" placeholder="e.g. paved road frontage"></div><div class="pri" data-pri></div></div>
+    </div>
+    <div class="fieldblock">
+      <label class="field">Buildable condition</label>
+      <div class="with-pri">
+        <div class="grow">
+          <select>
+            <option>Ready to build</option>
+            <option>Needs clearing</option>
+            <option>Needs grading</option>
+            <option>Not sure</option>
+          </select>
+        </div>
+        <div class="pri" data-pri></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPEN -->
+  <div class="card">
+    <p class="sect">Anything else</p>
+    <textarea placeholder="e.g. near a highway exit, a specific co-tenant, room to expand, off a busy intersection…"></textarea>
+    <div class="foot"><button class="save">Save Preferences</button></div>
+  </div>
+</div>
+
+<script>
+  var LEVELS=[['must','Must-have'],['nice','Nice-to-have'],['deal','Deal-breaker'],['dont',"Don't care"]];
+  document.querySelectorAll('[data-pri]').forEach(function(box){
+    LEVELS.forEach(function(l){
+      var b=document.createElement('button');
+      b.className=l[0]; b.title=l[1];
+      b.onclick=function(){
+        var was=b.classList.contains('on');
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});
+        if(!was) b.classList.add('on');
+      };
+      box.appendChild(b);
+    });
+  });
+  document.querySelectorAll('[data-feat] .wd').forEach(function(wd){
+    wd.querySelectorAll('button').forEach(function(b){
+      b.onclick=function(){
+        var was=b.classList.contains('on');
+        wd.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});
+        if(!was) b.classList.add('on');
+      };
+    });
+  });
+  function switchAsset(){
+    var v=document.querySelector('input[name=asset]:checked').value;
+    document.getElementById('retail').classList.toggle('hide', v!=='retail');
+    document.getElementById('land').classList.toggle('hide', v!=='land');
+  }
+</script>
+</body>
+</html>
