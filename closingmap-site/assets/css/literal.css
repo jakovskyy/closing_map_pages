@@ -98,3 +98,7 @@ html{scroll-behavior:smooth}
   opacity:0;transform:translateX(6px);transition:opacity .16s ease,transform .16s ease;pointer-events:none}
 .tilo:hover .tilo-tip,.tilo:focus-visible .tilo-tip{opacity:1;transform:translateX(0)}
 @media (prefers-reduced-motion:reduce){.tilo,.tilo-tip{transition:none}}
+
+/* prototype links that sit over artwork inside the stage */
+.stage .hot.xlink:hover{background:rgba(47,111,214,.10)}
+.stage .hot.xlink:focus-visible{outline:2px solid #2F6FD6;outline-offset:2px}
