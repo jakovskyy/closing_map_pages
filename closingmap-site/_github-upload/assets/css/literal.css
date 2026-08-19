@@ -1,0 +1,100 @@
+/* Closing Map — literal reproduction of ClosingMap-Final.xd
+   Every element is positioned from the coordinates in the XD scene graph.
+   The 1920px stage is scaled to fit the viewport. */
+@font-face{font-family:Gilroy;src:url("../fonts/Gilroy-Light.woff2")    format("woff2");font-weight:300;font-display:swap}
+@font-face{font-family:Gilroy;src:url("../fonts/Gilroy-Regular.woff2")  format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Gilroy;src:url("../fonts/Gilroy-Medium.woff2")   format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Gilroy;src:url("../fonts/Gilroy-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:Gilroy;src:url("../fonts/Gilroy-Bold.woff2")     format("woff2");font-weight:700;font-display:swap}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff}
+body{font-family:Gilroy,system-ui,sans-serif;color:#172032;-webkit-font-smoothing:antialiased}
+
+.viewport{width:100%;overflow:hidden;overflow:clip;position:relative}
+.stage{width:1920px;transform-origin:top left;position:relative;background:#fff}
+.stage>*{position:absolute;margin:0}
+.stage svg.s{overflow:visible}
+.stage .t{letter-spacing:-.01em}
+.stage h1,.stage h2,.stage h3{font-weight:inherit}
+.stage .i{display:block;overflow:hidden}
+.stage .i img{width:100%;height:100%;display:block}
+
+/* prototype page index — not part of the design */
+.pagenav{position:relative;z-index:60;display:flex;gap:2px;align-items:center;flex-wrap:wrap;
+  background:#172032;padding:8px 14px;font-size:12px}
+.pagenav span{color:#7E8BA0;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-right:10px}
+.pagenav a{color:#C9D3E2;text-decoration:none;padding:6px 10px;border-radius:5px;font-weight:600;white-space:nowrap}
+.pagenav a:hover{background:#25324a;color:#fff}
+.pagenav a.on{background:#2F6FD6;color:#fff}
+@media print{.pagenav{display:none}}
+
+/* the shared site header sits above the scaled stage, so the stage must not
+   re-declare page chrome. keep body defaults from site.css out of the stage. */
+.stage,.stage *{font-family:Gilroy,system-ui,sans-serif}
+.stage{font-size:16px;line-height:normal}
+.site-header{position:sticky;top:0;z-index:50}
+
+/* header chrome — reproduced at 1920 metrics and scaled with the stage,
+   so nav type matches the XD exactly at every viewport width */
+.chromewrap{position:sticky;top:0;z-index:50;overflow:hidden;background:#fff}
+.chrome{width:1920px;height:122px;transform-origin:top left;position:relative;background:#fff}
+.chrome>*{position:absolute;margin:0}
+.chrome .hot{display:block;background:transparent;border-radius:4px}
+.chrome .hot:hover{background:rgba(47,111,214,.08)}
+.chrome .hot:focus-visible{outline:2px solid #2F6FD6;outline-offset:2px}
+
+/* in-page jump targets and clickable category pills */
+.stage .anchor{display:block;width:1px;height:1px;pointer-events:none}
+.stage .hot{display:block;background:transparent;border-radius:8px}
+.stage .hot.jump:hover{background:rgba(47,111,214,.10)}
+.stage .hot.jump:focus-visible{outline:2px solid #2F6FD6;outline-offset:2px}
+html{scroll-behavior:smooth}
+
+/* site footer — the XD footer lifted out of the stage so pages that are not
+   generated from an artboard (calculators) can carry the identical block. */
+.footwrap{overflow:hidden;overflow:clip;background:#fff;position:relative}
+.foot1920{width:1920px;height:525px;transform-origin:top left;position:relative;background:#fff}
+.foot1920,.foot1920 *{font-family:Gilroy,system-ui,sans-serif}
+.foot1920{font-size:16px;line-height:normal}
+.foot1920>*{position:absolute;margin:0}
+.foot1920 .t{letter-spacing:-.01em}
+.foot1920 svg.s{overflow:visible}
+.foot1920 .i{display:block;overflow:hidden}
+.foot1920 .i img{width:100%;height:100%;display:block}
+
+/* Calculators dropdown — geometry from the XD, positioned fixed so the sticky
+   header's clip cannot eat it. */
+.navmenu{position:fixed;z-index:60}
+.navmenu[hidden]{display:none}
+.nm1920{position:relative;width:264px;height:190px;transform-origin:top left}
+.nm1920>*{position:absolute;margin:0}
+.nm1920,.nm1920 *{font-family:Gilroy,system-ui,sans-serif}
+.nm1920{font-size:16px;line-height:normal}
+.nm1920 .t{letter-spacing:-.01em}
+.nm1920 svg.s{overflow:visible}
+.nm1920 .mrow{display:block;border-radius:8px;background:transparent}
+.nm1920 .mrow:hover{background:rgba(47,111,214,.08)}
+.nm1920 .mrow:focus-visible{outline:2px solid #2F6FD6;outline-offset:-2px}
+.chrome .caret{display:block;pointer-events:none;transition:transform .16s ease}
+.chrome .caret.up{transform:rotate(0deg)}
+
+/* flowed pages (the calculator pages) ride the same 1920 stage as the literal
+   artboard pages, so type and spacing render at one consistent scale sitewide. */
+.flowwrap{width:100%;overflow:hidden;overflow:clip;position:relative}
+.flowstage{width:1920px;transform-origin:top left;position:relative;background:#fff}
+
+/* Tilo — the assistant launcher, lifted out of the home artboards and pinned
+   to the viewport so it rides along on every page. */
+.tilo{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;align-items:center;gap:10px;
+  text-decoration:none;filter:drop-shadow(0 6px 18px rgba(23,32,50,.22));
+  transition:transform .16s ease}
+.tilo:hover{transform:translateY(-2px)}
+.tilo:focus-visible{outline:2px solid #2F6FD6;outline-offset:6px;border-radius:50%}
+.tilo-face{position:relative;display:block;width:59px;height:59px;transform-origin:bottom right}
+.tilo-face>*{position:absolute;margin:0}
+.tilo-tip{order:-1;background:#172032;color:#fff;font-family:Gilroy,system-ui,sans-serif;
+  font-size:13px;font-weight:600;padding:7px 12px;border-radius:6px;white-space:nowrap;
+  opacity:0;transform:translateX(6px);transition:opacity .16s ease,transform .16s ease;pointer-events:none}
+.tilo:hover .tilo-tip,.tilo:focus-visible .tilo-tip{opacity:1;transform:translateX(0)}
+@media (prefers-reduced-motion:reduce){.tilo,.tilo-tip{transition:none}}
