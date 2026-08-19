@@ -62,3 +62,39 @@ html{scroll-behavior:smooth}
 .foot1920 svg.s{overflow:visible}
 .foot1920 .i{display:block;overflow:hidden}
 .foot1920 .i img{width:100%;height:100%;display:block}
+
+/* Calculators dropdown — geometry from the XD, positioned fixed so the sticky
+   header's clip cannot eat it. */
+.navmenu{position:fixed;z-index:60}
+.navmenu[hidden]{display:none}
+.nm1920{position:relative;width:264px;height:190px;transform-origin:top left}
+.nm1920>*{position:absolute;margin:0}
+.nm1920,.nm1920 *{font-family:Gilroy,system-ui,sans-serif}
+.nm1920{font-size:16px;line-height:normal}
+.nm1920 .t{letter-spacing:-.01em}
+.nm1920 svg.s{overflow:visible}
+.nm1920 .mrow{display:block;border-radius:8px;background:transparent}
+.nm1920 .mrow:hover{background:rgba(47,111,214,.08)}
+.nm1920 .mrow:focus-visible{outline:2px solid #2F6FD6;outline-offset:-2px}
+.chrome .caret{display:block;pointer-events:none;transition:transform .16s ease}
+.chrome .caret.up{transform:rotate(0deg)}
+
+/* flowed pages (the calculator pages) ride the same 1920 stage as the literal
+   artboard pages, so type and spacing render at one consistent scale sitewide. */
+.flowwrap{width:100%;overflow:hidden;overflow:clip;position:relative}
+.flowstage{width:1920px;transform-origin:top left;position:relative;background:#fff}
+
+/* Tilo — the assistant launcher, lifted out of the home artboards and pinned
+   to the viewport so it rides along on every page. */
+.tilo{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;align-items:center;gap:10px;
+  text-decoration:none;filter:drop-shadow(0 6px 18px rgba(23,32,50,.22));
+  transition:transform .16s ease}
+.tilo:hover{transform:translateY(-2px)}
+.tilo:focus-visible{outline:2px solid #2F6FD6;outline-offset:6px;border-radius:50%}
+.tilo-face{position:relative;display:block;width:59px;height:59px;transform-origin:bottom right}
+.tilo-face>*{position:absolute;margin:0}
+.tilo-tip{order:-1;background:#172032;color:#fff;font-family:Gilroy,system-ui,sans-serif;
+  font-size:13px;font-weight:600;padding:7px 12px;border-radius:6px;white-space:nowrap;
+  opacity:0;transform:translateX(6px);transition:opacity .16s ease,transform .16s ease;pointer-events:none}
+.tilo:hover .tilo-tip,.tilo:focus-visible .tilo-tip{opacity:1;transform:translateX(0)}
+@media (prefers-reduced-motion:reduce){.tilo,.tilo-tip{transition:none}}
